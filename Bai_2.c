@@ -39,7 +39,7 @@ int mod4is3(int n)
 int isBlum(int n)
 {
     //Duyệt qua các số nguyên tố nhỏ hơn căn bậc hai của n. 
-    for(int i = 2; i <= sqrt(i); i++)
+    for(int i = 2; i <= sqrt(n); i++)
     {
         //Kiểm tra xem i số nguyên tố chia 4 dư 3 không. 
         if(isPrime(i) && mod4is3(i))
@@ -97,15 +97,20 @@ int main()
     //Kiểm tra xem một số Blum M có tồn tại trong dãy số Blum được tạo ra hay không.
     int M; 
     do scanf("%d", &M);
-    while (isBlum == 0); 
+    while (isBlum(M) == 0);
+    int count;     
     if(M >= N) printf("M khong ton tai trong mang B"); 
     else
     {
         for(int i = 0; i < n; i++)
-            if (M == B[i]) break;
-        printf("M co ton tai trong mang B");
-    }
-    printf("M khong ton tai trong mang B"); 
+            if (M == B[i])
+            {
+                count = 1; 
+                break;
+            }
+        if (count) printf("M ton tai trong mang B");
+            else printf("M khong ton tai trong mang B");
+    }    
     return 0; 
 }
 
