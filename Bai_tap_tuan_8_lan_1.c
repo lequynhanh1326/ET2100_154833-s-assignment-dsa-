@@ -121,7 +121,8 @@ void inDT(ListDT dsDT)
 void freeDT(ListDT* dsDT) 
 {
     NodeDT* p;
-    while (dsDT->first != NULL) {
+    while (dsDT->first != NULL) 
+    {
         p = dsDT->first;
         dsDT->first = dsDT->first->next;
         free(p);
@@ -129,7 +130,8 @@ void freeDT(ListDT* dsDT)
     dsDT->last = NULL; // Đảm bảo last trỏ NULL sau khi giải phóng
 }
 
-int main() {
+int main() 
+{
     ListDT DT1;
     initDT(&DT1);
     taoDT(&DT1);
