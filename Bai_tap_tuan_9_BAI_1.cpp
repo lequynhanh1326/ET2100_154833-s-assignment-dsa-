@@ -28,12 +28,12 @@ struct File
 
 struct Folder
 {
-    File* fisrtNode, *lastNode; 
+    File* firstNode, *lastNode; 
 };
 
 void init_Folder(Folder* folderD)
 {
-    folderD->fisrtNode = folderD->lastNode = NULL;
+    folderD->firstNode = folderD->lastNode = NULL;
 }
 
 //2. Copy paste một file từ thư mục khác sang thư mục trên sao do file luôn được chèn vào theo trật tự thời gian  
@@ -54,35 +54,36 @@ File* newFile(string name, string addr, int time, double size)
 void addFile(Folder* folderD, File* newNode)
 {
     //TH1: Nếu danh sách đang rỗng hoặc thời gian của file mới được copy sang lớn hơn thời gian của file đầu tiên trong danh sách thì chèn file mới vào đầu danh sách
-   if ((!folderD->fisrtNode) || (newNode->time < folderD->fisrtNode->time))
+   if ((!folderD->firstNode) || (newNode->time < folderD->firstNode->time))
    {
-        newNode->link = folderD->fisrtNode; 
-        folderD->fisrtNode = newNode; 
+        newNode->link = folderD->firstNode; 
+        folderD->firstNode = newNode; 
         //Nếu danh sách rỗng, cập nhật cả lastNode
         if (!folderD->lastNode) folderD->lastNode = newNode; 
    }
-
+    else
+    {
    //TH2: Chèn vào sau 1 node nào đó trong danh sách 
-   File* p = folderD->fisrtNode; 
+   File* p = folderD->firstNode; 
    while ((p->link) && (p->link->time <= newNode->time))
         p = p->link;
     newNode->link = p->link; //Nối node mới vào sau node hiện tại 
     p->link = newNode; 
     if (!newNode->link) folderD->lastNode = newNode; //Nếu node mới được chèn vào cuối danh sách, cập nhật lastNode là node mới. 
-    
+    }
 }
 
 //Hàm hiển thị các file trong thư mục 
 void displayFiles(Folder* folderD)
 {
-    File* p = folderD->fisrtNode; 
-    cout << "Danh sach cac file co trong thu muc D>Document:" << endl;
+    File* p = folderD->firstNode; 
+    cout << "Danh sach cac file co trong thu muc D>Document:\n";
     while(p)
     {
         cout << "Name: " << p->name
              << ", Add: " << p->addr
              << ", Size: " << p->size << " GB"
-             << ", Time: " << p->time << endl;
+             << ", Time: " << p->time << "\n";
         p = p->link;
     }
 }
@@ -91,7 +92,7 @@ void displayFiles(Folder* folderD)
 double totalSize(Folder* folderD)
 {
     double totalSize = 0; 
-    File* p = folderD->fisrtNode; 
+    File* p = folderD->firstNode; 
     while (p)
     {
         totalSize += p->size; 
@@ -120,7 +121,7 @@ int main()
     displayFiles(&folderD);
 
     //Tính tổng kích thước
-    cout << "Tổng kích thước các file: " << totalSize(&folderD) << " GB" << endl;
+    cout << "Tong kich thuoc cac file: " << totalSize(&folderD) << " GB" << endl;
 
 
     return 0;
