@@ -36,7 +36,6 @@ void init_Folder(Folder* folderD)
     folderD->firstNode = folderD->lastNode = NULL;
 }
 
-//2. Copy paste một file từ thư mục khác sang thư mục trên sao do file luôn được chèn vào theo trật tự thời gian  
 
 //Hàm tạo node mới 
 File* newFile(string name, string addr, int time, double size)
@@ -50,16 +49,33 @@ File* newFile(string name, string addr, int time, double size)
     return newNode; 
 } 
 
+//Hàm hiển thị các file trong thư mục 
+void printFiles(Folder* folderD)
+{
+    File* p = folderD->firstNode; 
+    cout << "Danh sach cac file co trong thu muc D>Document:\n";
+    while(p)
+    {
+        cout << "Name: " << p->name
+             << "\n     Addr: " << p->addr
+             << "\n     Size: " << p->size << " GB"
+             << "\n     Time: " << p->time << "\n";
+        p = p->link;
+    }
+}
+
+
+//2. Copy paste một file từ thư mục khác sang thư mục trên sao do file luôn được chèn vào theo trật tự thời gian  
+
 //Hàm chèn file vào thư mục theo trình tự thời gian 
 void addFile(Folder* folderD, File* newNode)
 {
     //TH1: Nếu danh sách đang rỗng hoặc thời gian của file mới được copy sang lớn hơn thời gian của file đầu tiên trong danh sách thì chèn file mới vào đầu danh sách
-   if ((!folderD->firstNode) || (newNode->time < folderD->firstNode->time))
+   if ((folderD->firstNode == NULL) || (newNode->time < folderD->firstNode->time))
    {
         newNode->link = folderD->firstNode; 
         folderD->firstNode = newNode; 
-        //Nếu danh sách rỗng, cập nhật cả lastNode
-        if (!folderD->lastNode) folderD->lastNode = newNode; 
+        return; 
    }
     else
     {
@@ -69,24 +85,9 @@ void addFile(Folder* folderD, File* newNode)
         p = p->link;
     newNode->link = p->link; //Nối node mới vào sau node hiện tại 
     p->link = newNode; 
-    if (!newNode->link) folderD->lastNode = newNode; //Nếu node mới được chèn vào cuối danh sách, cập nhật lastNode là node mới. 
     }
 }
 
-//Hàm hiển thị các file trong thư mục 
-void displayFiles(Folder* folderD)
-{
-    File* p = folderD->firstNode; 
-    cout << "Danh sach cac file co trong thu muc D>Document:\n";
-    while(p)
-    {
-        cout << "Name: " << p->name
-             << ", Add: " << p->addr
-             << ", Size: " << p->size << " GB"
-             << ", Time: " << p->time << "\n";
-        p = p->link;
-    }
-}
 
 //3. Thực hiện tính toán tổng kích thước các file trong thư mục 
 double totalSize(Folder* folderD)
@@ -109,16 +110,16 @@ int main()
     Folder folderD;
     init_Folder(&folderD);
     //Tạo danh sách các file trong thư mục
-    addFile(&folderD, newFile("CTDLGT", "D:/Document/CTDLGT.txt", 90924, 1.2));
-    addFile(&folderD, newFile("XSTK", "D:/Document/XSTK.txt", 80924, 1.2));
-    addFile(&folderD, newFile("VLDCII", "D:/Document/VLDCII.txt", 100924, 1.2));
-    addFile(&folderD, newFile("TDTK", "D:/Document/TDTK.txt", 120924, 1.2));
-    addFile(&folderD, newFile("VLDT", "D:/Document/VLDT.txt", 200924, 1.2));
-    displayFiles(&folderD);
+    addFile(&folderD, newFile("CTDLGT", "D:/Document/CTDLGT", 90924, 1.2));
+    addFile(&folderD, newFile("XSTK", "D:/Document/XSTK", 80924, 1.2));
+    addFile(&folderD, newFile("VLDCII", "D:/Document/VLDCII", 100924, 1.2));
+    addFile(&folderD, newFile("TDTK", "D:/Document/TDTK", 120924, 1.2));
+    addFile(&folderD, newFile("VLDT", "D:/Document/VLDT", 200924, 1.2));
+    printFiles(&folderD);
 
     //Copy một file từ thư mục khác sang
-    addFile(&folderD, newFile("TTCB", "C:/Document/TTCB.txt", 281024, 1.2));
-    displayFiles(&folderD);
+    addFile(&folderD, newFile("TTCB", "C:/Document/TTCB", 281024, 1.2));
+    printFiles(&folderD);
 
     //Tính tổng kích thước
     cout << "Tong kich thuoc cac file: " << totalSize(&folderD) << " GB" << endl;
