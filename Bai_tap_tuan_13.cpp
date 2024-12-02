@@ -1,61 +1,51 @@
-//BÀI 1
 /*
-Yêu cầu bài toán: Nhập vào n đối tượng có màu đỏ (red), trắng (white) và xanh (blue). 
-                  Sắp xếp theo trật tự như sau: các đối tượng cùng màu nằm kế tiếp nhau và theo thứ tự đỏ, trắng, xanh.
-Input: {xanh, đỏ, xanh, đỏ, đỏ, trắng, đỏ, xanh, trắng}
-Output: {đỏ, đỏ, đỏ, đỏ, trắng, xanh, xanh, xanh}
-Gợi ý: Có thể mã hóa các màu bằng các số nguyên 0,1,2 để biểu diễn lần lượt màu đỏ, trắng và xanh tương ứng.
-Chú ý: Không sử dụng các thư viện hàm sắp xếp có sẵn để giải quyết bài toán trên khi cài đặt chương trình. 
+Trong siêu thị người ta xếp hàng để thực hiện thanh toán. 
+Mỗi giỏ hàng với các hàng hoá được coi như một node trong một cấu trúc hàng đợi.  
+Yêu cầu: 
+1. Khai báo cấu trúc hàng đợi. 
+   Các thông tin chứa ở mỗi node sinh viên tự đưa vào để đảm bảo các nội dung sau được thực hiện 
+2. Loại bỏ từng người ra khỏi hàng đợi sau khi người đó đã thực hiện thanh toán xong 
+3. Tính tổng số tiền mà thu ngân thu được tại quầy trong một phiên làm việc  
+4. Xác định số lượng một sản phẩm A đã được bán tại quầy thu ngân  
 */
 
-#include <stdio.h> 
-int main()
+#include <iostream>
+#include <string> 
+using namespace std;
+
+//Khai báo cấu trúc lưu thông tin của một loại sản phẩm
+struct Item
 {
-    //n đối tượng có màu đỏ, trắng, xanh tạo thành một mảng 1 chiều có n phần tử nguyên. 
-    //Trong đó các đối tượng màu đỏ, trắng và xanh được mã hóa tương ứng với các số nguyên 0,1,2.
-    int n;
-    int min_idx; 
+   string iName; //Tên sản phẩm 
+   int iQuantity; //Số lượng mua một loại sản phẩm 
+   double price; //Giá/1 sản phẩm 
+};
 
-    //Nhập vào số phần tử của mảng (n>0).
-    printf("So phan tu cua mang: n = "); 
-    do scanf("%d", &n);
-    while(n <= 0);
+//Khai báo cấu trúc hàng đợi 
+//Cấu trúc của một Node trong cấu trúc queue (lưu thông tin của một khách hàng)
+struct Customer
+{
+   string cName; //Tên khách hàng
+   Item* itemList; //Danh sách các sản phẩm khách hàng đã mua
+   int countList; //Số lượng sản phẩm trong danh sách
+   Customer* next; 
+};
 
-    int arr[n];
-    //Nhập vào các phần tử của mảng. 
-    for(int i = 0; i < n; i++) 
-    {
-        do scanf("%d", &arr[i]); 
-        while((arr[i] != 0) || (arr[i] != 1) || (arr[i] != 2));
-    }
+struct Queue
+{
+   Customer* front; //Con trỏ trỏ tới khách hàng đầu tiên trong queue
+   Customer* rear; //Con trỏ trỏ tới khách hàng cuối cùng trong queue
+};
 
-    //In ra các phần tử của mảng
-    printf("Mang da tao: ");
-    for (int i = 0; i < n; i++)
-    {
-        printf("%d ", arr[i]);
-    }
-
-    //Sử dụng thuật toán Selection Sort để sắp xếp mảng theo thứ tự tăng dần {0,1,2}
-    for(int i = 0; i < n-1; i++)
-    {
-        //Tìm ra phần tử nhỏ nhất trong mảng chưa được sắp xếp 
-        min_idx = i; 
-        for (int j = i+1; j < n; j++)
-            if(arr[j] < arr[min_idx])
-                min_idx = j; 
-        
-        //Hoán đổi vị trí của phần tử nhỏ nhất với phần tử đầu tiên của mảng
-        int temp = arr[min_idx]; 
-        arr[min_idx] = arr[i];
-        arr[i] = temp;  
-    }
-
-    //In ra mảng sau khi đã sắp xếp 
-    for (int i = 0; i < n; i++)
-    printf("%d ", arr[i]); 
-
-    return 0;
-    
-    
+//Khởi tạo Queue
+void Init(Queue* Q)
+{
+   Q->front = Q->rear = NULL;
 }
+
+//Kiểm tra Queue rỗng 
+Customer isEmpty(Queue Q)
+{
+   return Q.front = Q.rear == NULL ? 1 : 0; 
+}
+
