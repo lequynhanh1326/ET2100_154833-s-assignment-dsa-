@@ -1,3 +1,4 @@
 {
-    "C_Cpp.default.compilerPath": "c:\\Users\\Admin\\msys64\\mingw64\\bin\\g++.exe"
+    "C_Cpp.default.compilerPath": "c:\\Users\\Admin\\msys64\\mingw64\\bin\\g++.exe",
+    "C_Cpp.errorSquiggles": "disabled"
 }
