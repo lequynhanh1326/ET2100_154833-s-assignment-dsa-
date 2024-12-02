@@ -48,4 +48,3 @@ Customer isEmpty(Queue Q)
 {
    return Q.front = Q.rear == NULL ? 1 : 0; 
 }
-
