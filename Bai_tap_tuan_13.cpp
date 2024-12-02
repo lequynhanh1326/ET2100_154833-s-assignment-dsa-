@@ -44,9 +44,11 @@ void Init(Queue* Q)
 }
 
 //Kiểm tra Queue rỗng 
-Customer isEmpty(Queue Q)
+int isEmpty(Queue Q)
 {
    return Q.front == NULL && Q.rear == NULL ? 1 : 0; 
 }
+
+
 
 
