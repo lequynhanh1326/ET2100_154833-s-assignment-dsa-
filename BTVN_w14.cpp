@@ -6,3 +6,23 @@ Cài đặt hàm khởi tạo cây (không được bỏ qua hàm kiểm tra r�
 Cài đặt hàm nhập phần tử (bổ sung) vào cây 
 In các phần tử trên cây theo 3 giải thuật duyệt a*5 - (b*c^6)/d + (h-f)*e^(1/2)
 */
+#include <iostream>
+#include <string>
+#include <cctype>
+
+using nam std; 
+//Cài đặt thuộc tính cho một Node trên cây 
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+
+    Node(int val)
+    {
+        data = val;
+		left = NULL;
+        right = NULL;
+    }
+};
+
+
