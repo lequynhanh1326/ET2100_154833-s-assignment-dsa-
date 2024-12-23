@@ -17,6 +17,7 @@ struct Node {
     Node* left;
     Node* right;
 
+    //Hàm constructor khởi tạo những giá trị ban đầu
     Node(string value)
     {
         data = value;
