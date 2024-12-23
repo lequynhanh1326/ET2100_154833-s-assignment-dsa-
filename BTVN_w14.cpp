@@ -10,7 +10,7 @@ Cài đặt cây biểu thức cho biểu thức a*5 - (b*c^6)/d + (h-f)*e^(1/2)
 #include <string>
 #include <cctype>
 
-using nam std; 
+using namespace std; 
 //Cài đặt thuộc tính cho một Node trên cây 
 struct Node {
     string data;
@@ -79,9 +79,9 @@ Node* insertNode()
 void inOrder(Node* root) 
 {
     if (root != NULL) {
-        inorder(root->left);
+        inOrder(root->left);
         cout << root->data << " ";
-        inorder(root->right);
+        inOrder(root->right);
     }
 }
 
@@ -89,16 +89,16 @@ void inOrder(Node* root)
 void preOrder(Node* root) {
     if (root != nullptr) {
         cout << root->data << " ";
-        preorder(root->left);
-        preorder(root->right);
+        preOrder(root->left);
+        preOrder(root->right);
     }
 }
 
 //Duyệt Hậu tố
 void postOrder(Node* root) {
     if (root != nullptr) {
-        postorder(root->left);
-        postorder(root->right);
+        postOrder(root->left);
+        postOrder(root->right);
         cout << root->data << " ";
     }
 }
@@ -106,20 +106,20 @@ void postOrder(Node* root) {
 int main() {
     Node* root;
     Init_Tree(root);
-    if(isEmpty(root)) return;
+    if(isEmpty(root)) return 0;
 
     root = insertNode();
 
-    cout << "Duyệt Trung tố: ";
-    inorder(root);
+    cout << "Duyet Trung to: ";
+    inOrder(root);
     cout << endl;
 
-    cout << "Duyệt Tiền tố: ";
-    preorder(root);
+    cout << "Duyet Tien to: ";
+    preOrder(root);
     cout << endl;
 
-    cout << "Duyệt Hậu tố: ";
-    postorder(root);
+    cout << "Duyet Hau to: ";
+    postOrder(root);
     cout << endl;
 
     return 0;
